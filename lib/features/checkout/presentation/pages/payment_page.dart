@@ -60,23 +60,26 @@ class PaymentPage extends ConsumerWidget {
                   subtitle: Text(
                     '**** **** **** ${method.cardNumber?.substring(method.cardNumber!.length - 4) ?? '****'}',
                   ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () =>
-                            context.push('/payment/edit/${method.id}'),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete, color: AppColors.error),
-                        onPressed: () {
-                          ref
-                              .read(paymentProvider.notifier)
-                              .deletePaymentMethod(method.id);
-                        },
-                      ),
-                    ],
+                  trailing: SizedBox(
+                    width: 96,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () =>
+                              context.push('/payment/edit/${method.id}'),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: AppColors.error),
+                          onPressed: () {
+                            ref
+                                .read(paymentProvider.notifier)
+                                .deletePaymentMethod(method.id);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );

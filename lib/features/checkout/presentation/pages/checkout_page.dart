@@ -186,6 +186,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
               const SizedBox(width: AppDimensions.paddingSM),
               SizedBox(
                 height: 56,
+                width: 100,
                 child: ElevatedButton(
                   onPressed: () {
                     // Apply promo code logic

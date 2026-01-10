@@ -59,23 +59,26 @@ class AddressPage extends ConsumerWidget {
                   subtitle: Text(
                     '${address.streetAddress}\n${address.city}, ${address.state} ${address.zipCode}',
                   ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () =>
-                            context.push('/address/edit/${address.id}'),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete, color: AppColors.error),
-                        onPressed: () {
-                          ref
-                              .read(addressProvider.notifier)
-                              .deleteAddress(address.id);
-                        },
-                      ),
-                    ],
+                  trailing: SizedBox(
+                    width: 96,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () =>
+                              context.push('/address/edit/${address.id}'),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: AppColors.error),
+                          onPressed: () {
+                            ref
+                                .read(addressProvider.notifier)
+                                .deleteAddress(address.id);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   isThreeLine: true,
                 ),
