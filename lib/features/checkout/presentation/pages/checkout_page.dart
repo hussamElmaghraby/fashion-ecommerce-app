@@ -184,11 +184,14 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
                 ),
               ),
               const SizedBox(width: AppDimensions.paddingSM),
-              ElevatedButton(
-                onPressed: () {
-                  // Apply promo code logic
-                },
-                child: Text(L10nKeys.apply.tr(context)),
+              SizedBox(
+                height: 56,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Apply promo code logic
+                  },
+                  child: Text(L10nKeys.apply.tr(context)),
+                ),
               ),
             ],
           ),

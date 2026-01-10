@@ -8,20 +8,16 @@ class L10n {
 
   L10n(this.context);
 
-  /// Get L10n instance from context
   static L10n of(BuildContext context) => L10n(context);
 
-  /// Translate a key
   String translate(String key) {
     return AppLocalizations.of(context)?.translate(key) ?? key;
   }
 
-  /// Get current locale
   String get currentLanguage {
     return AppLocalizations.of(context)?.locale.languageCode ?? 'en';
   }
 
-  /// Check if current language is RTL
   bool get isRTL {
     return AppLocalizations.of(context)?.isRTL ?? false;
   }
@@ -203,31 +199,23 @@ class L10n {
   String get enterPromoCode => translate('enter_promo_code');
 }
 
-/// Extension on String for easy translation
-/// Usage: 'key'.tr(context)
 extension StringTranslation on String {
   String tr(BuildContext context) {
     return AppLocalizations.of(context)?.translate(this) ?? this;
   }
 }
 
-/// Extension on BuildContext for easy access
-/// Usage: context.tr('key') or context.s
 extension BuildContextTranslation on BuildContext {
-  /// Translate a key
   String tr(String key) {
     return AppLocalizations.of(this)?.translate(key) ?? key;
   }
 
-  /// Get L10n instance (kept as 's' for convenience)
   L10n get s => L10n(this);
 
-  /// Get current language code
   String get languageCode {
     return AppLocalizations.of(this)?.locale.languageCode ?? 'en';
   }
 
-  /// Check if RTL
   bool get isRTL {
     return AppLocalizations.of(this)?.isRTL ?? false;
   }
