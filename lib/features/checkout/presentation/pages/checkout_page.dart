@@ -31,7 +31,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
     if (_selectedAddressId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(S.pleaseSelectAddress.tr(context)),
+          content: Text(L10nKeys.pleaseSelectAddress.tr(context)),
           backgroundColor: AppColors.error,
         ),
       );
@@ -41,7 +41,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
     if (_selectedPaymentId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(S.pleaseSelectPayment.tr(context)),
+          content: Text(L10nKeys.pleaseSelectPayment.tr(context)),
           backgroundColor: AppColors.error,
         ),
       );
@@ -51,7 +51,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
     // Place order logic here
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(S.orderPlaced.tr(context)),
+        content: Text(L10nKeys.orderPlaced.tr(context)),
         backgroundColor: AppColors.success,
       ),
     );
@@ -68,13 +68,13 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
     final paymentMethodsAsync = ref.watch(paymentMethodsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(S.checkout.tr(context))),
+      appBar: AppBar(title: Text(L10nKeys.checkout.tr(context))),
       body: ListView(
         padding: const EdgeInsets.all(AppDimensions.paddingMD),
         children: [
           // Delivery Address Section
           Text(
-            S.deliveryAddress.tr(context),
+            L10nKeys.deliveryAddress.tr(context),
             style: const TextStyle(
               fontSize: AppDimensions.fontLG,
               fontWeight: FontWeight.bold,
@@ -89,7 +89,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
                     title: const Text('No addresses saved'),
                     trailing: TextButton(
                       onPressed: () => context.push('/address/add'),
-                      child: Text(S.addNew.tr(context)),
+                      child: Text(L10nKeys.addNew.tr(context)),
                     ),
                   ),
                 );
@@ -118,7 +118,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
 
           // Payment Method Section
           Text(
-            S.paymentMethod.tr(context),
+            L10nKeys.paymentMethod.tr(context),
             style: const TextStyle(
               fontSize: AppDimensions.fontLG,
               fontWeight: FontWeight.bold,
@@ -133,7 +133,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
                     title: const Text('No payment methods saved'),
                     trailing: TextButton(
                       onPressed: () => context.push('/payment/add'),
-                      child: Text(S.addNew.tr(context)),
+                      child: Text(L10nKeys.addNew.tr(context)),
                     ),
                   ),
                 );
@@ -164,7 +164,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
 
           // Promo Code Section
           Text(
-            S.promoCode.tr(context),
+            L10nKeys.promoCode.tr(context),
             style: const TextStyle(
               fontSize: AppDimensions.fontLG,
               fontWeight: FontWeight.bold,
@@ -177,7 +177,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
                 child: TextField(
                   controller: _promoCodeController,
                   decoration: InputDecoration(
-                    hintText: S.enterPromoCode.tr(context),
+                    hintText: L10nKeys.enterPromoCode.tr(context),
                     border: const OutlineInputBorder(),
                   ),
                 ),
@@ -187,7 +187,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
                 onPressed: () {
                   // Apply promo code logic
                 },
-                child: Text(S.apply.tr(context)),
+                child: Text(L10nKeys.apply.tr(context)),
               ),
             ],
           ),
@@ -195,7 +195,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
 
           // Order Summary
           Text(
-            S.orderSummary.tr(context),
+            L10nKeys.orderSummary.tr(context),
             style: const TextStyle(
               fontSize: AppDimensions.fontLG,
               fontWeight: FontWeight.bold,
@@ -208,22 +208,22 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
               child: Column(
                 children: [
                   _buildSummaryRow(
-                    S.subtotal.tr(context),
+                    L10nKeys.subtotal.tr(context),
                     '\$${cartState.subtotal.toStringAsFixed(2)}',
                   ),
                   const SizedBox(height: AppDimensions.paddingSM),
                   _buildSummaryRow(
-                    S.tax.tr(context),
+                    L10nKeys.tax.tr(context),
                     '\$${cartState.tax.toStringAsFixed(2)}',
                   ),
                   const SizedBox(height: AppDimensions.paddingSM),
                   _buildSummaryRow(
-                    S.shipping.tr(context),
+                    L10nKeys.shipping.tr(context),
                     '\$${cartState.shipping.toStringAsFixed(2)}',
                   ),
                   const Divider(height: AppDimensions.paddingLG),
                   _buildSummaryRow(
-                    S.total.tr(context),
+                    L10nKeys.total.tr(context),
                     '\$${cartState.total.toStringAsFixed(2)}',
                     isTotal: true,
                   ),
@@ -234,7 +234,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
           const SizedBox(height: AppDimensions.paddingXL),
 
           // Place Order Button
-          CustomButton(text: S.placeOrder.tr(context), onPressed: _placeOrder),
+          CustomButton(text: L10nKeys.placeOrder.tr(context), onPressed: _placeOrder),
         ],
       ),
     );

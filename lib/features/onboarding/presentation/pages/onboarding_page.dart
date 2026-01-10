@@ -44,7 +44,7 @@ class OnboardingPage extends StatelessWidget {
 
                   // Title at top left
                   Text(
-                    S.onboardingTitle1.tr(context),
+                    L10nKeys.onboardingTitle1.tr(context),
                     style: const TextStyle(
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
@@ -57,7 +57,7 @@ class OnboardingPage extends StatelessWidget {
                   const Spacer(),
 
                   CustomButton(
-                    text: S.getStarted.tr(context),
+                    text: L10nKeys.getStarted.tr(context),
                     onPressed: () => context.go('/login'),
                   ),
 

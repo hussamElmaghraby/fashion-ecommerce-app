@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
-import '../../../../core/extensions/string_extensions.dart';
+import '../../../../core/utils/s.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../providers/cart_provider.dart';
 import '../../../../gen/assets.gen.dart';
@@ -15,6 +15,7 @@ class CartPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cartState = ref.watch(cartProvider);
+    final s = context.s;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -23,7 +24,7 @@ class CartPage extends ConsumerWidget {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          S.myCart.tr(context),
+          s.myCart,
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -47,6 +48,8 @@ class CartPage extends ConsumerWidget {
   }
 
   Widget _buildEmptyCart(BuildContext context) {
+    final s = context.s;
+    
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +69,7 @@ class CartPage extends ConsumerWidget {
           ),
           const SizedBox(height: 24),
           Text(
-            S.cartEmpty.tr(context),
+            s.yourCartIsEmpty,
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
@@ -74,10 +77,10 @@ class CartPage extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'When you add products, they\'ll\nappear here.',
+          Text(
+            s.cartEmptySubtitle,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               color: AppColors.textSecondary,
               height: 1.5,
@@ -85,7 +88,7 @@ class CartPage extends ConsumerWidget {
           ),
           const SizedBox(height: 32),
           CustomButton(
-            text: S.startShopping.tr(context),
+            text: s.startShopping,
             onPressed: () => context.go('/'),
           ),
         ],
@@ -98,6 +101,8 @@ class CartPage extends ConsumerWidget {
     WidgetRef ref,
     dynamic cartState,
   ) {
+    final s = context.s;
+    
     return Column(
       children: [
         Expanded(
@@ -132,25 +137,25 @@ class CartPage extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _PriceRow(
-                  label: S.subtotal.tr(context),
-                  value: '\$${cartState.subtotal.toStringAsFixed(2)}',
+                  label: s.subTotal,
+                  value: '\$${cartState.subtotal.toStringAsFixed(3)}',
                 ),
                 const SizedBox(height: 12),
                 _PriceRow(
-                  label: S.tax.tr(context),
-                  value: '\$${cartState.tax.toStringAsFixed(2)}',
+                  label: s.vat,
+                  value: '\$${cartState.tax.toStringAsFixed(3)}',
                 ),
                 const SizedBox(height: 12),
                 _PriceRow(
-                  label: S.shipping.tr(context),
+                  label: s.shippingFee,
                   value: '\$${cartState.shipping.toStringAsFixed(2)}',
                 ),
                 const SizedBox(height: 16),
                 const Divider(height: 1, color: Color(0xFFE5E7EB)),
                 const SizedBox(height: 16),
                 _PriceRow(
-                  label: S.total.tr(context),
-                  value: '\$${cartState.total.toStringAsFixed(2)}',
+                  label: s.total,
+                  value: '\$${cartState.total.toStringAsFixed(3)}',
                   isTotal: true,
                 ),
                 const SizedBox(height: 20),
@@ -171,7 +176,7 @@ class CartPage extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          S.proceedToCheckout.tr(context),
+                          s.goToCheckout,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,

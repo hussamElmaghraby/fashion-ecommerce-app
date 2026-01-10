@@ -15,7 +15,7 @@ class AddressPage extends ConsumerWidget {
     final addressesAsync = ref.watch(addressesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(S.addresses.tr(context))),
+      appBar: AppBar(title: Text(L10nKeys.addresses.tr(context))),
       body: addressesAsync.when(
         data: (addresses) {
           if (addresses.isEmpty) {
@@ -38,7 +38,7 @@ class AddressPage extends ConsumerWidget {
                   ),
                   const SizedBox(height: AppDimensions.paddingXL),
                   CustomButton(
-                    text: S.addNewAddress.tr(context),
+                    text: L10nKeys.addNewAddress.tr(context),
                     onPressed: () => context.push('/address/add'),
                   ),
                 ],

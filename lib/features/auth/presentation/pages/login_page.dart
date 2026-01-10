@@ -106,7 +106,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               children: [
                 // Title
                 Text(
-                  S.login.tr(context),
+                  L10nKeys.login.tr(context),
                   style: const TextStyle(
                     fontSize: AppDimensions.fontDisplay,
                     fontWeight: FontWeight.bold,
@@ -115,7 +115,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ),
                 const SizedBox(height: AppDimensions.paddingSM),
                 Text(
-                  S.loginToAccount.tr(context),
+                  L10nKeys.loginToAccount.tr(context),
                   style: const TextStyle(
                     fontSize: AppDimensions.fontLG,
                     color: AppColors.textSecondary,
@@ -125,18 +125,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                 // Email Field
                 CustomTextField(
-                  label: S.email.tr(context),
-                  hintText: 'Enter your email',
+                  label: L10nKeys.email.tr(context),
+                  hintText: L10nKeys.enterYourEmail.tr(context),
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   showSuccessState: true,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return S.fieldRequired.tr(context);
+                      return L10nKeys.fieldRequired.tr(context);
                     }
                     if (!EmailValidator.validate(value)) {
-                      return S.invalidEmail.tr(context);
+                      return L10nKeys.invalidEmail.tr(context);
                     }
                     return null;
                   },
@@ -145,8 +145,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                 // Password Field
                 CustomTextField(
-                  label: S.password.tr(context),
-                  hintText: 'Enter your password',
+                  label: L10nKeys.password.tr(context),
+                  hintText: L10nKeys.enterYourPassword.tr(context),
                   controller: _passwordController,
                   obscureText: _obscurePassword,
                   textInputAction: TextInputAction.done,
@@ -193,7 +193,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           },
                         ),
                         Text(
-                          S.rememberMe.tr(context),
+                          L10nKeys.rememberMe.tr(context),
                           style: const TextStyle(
                             fontSize: AppDimensions.fontMD,
                             color: AppColors.textPrimary,
@@ -204,7 +204,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     TextButton(
                       onPressed: () => context.push('/reset-password'),
                       child: Text(
-                        S.forgotPassword.tr(context),
+                        L10nKeys.forgotPassword.tr(context),
                         style: const TextStyle(fontSize: AppDimensions.fontMD),
                       ),
                     ),
@@ -214,7 +214,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                 // Login Button
                 CustomButton(
-                  text: S.login.tr(context),
+                  text: L10nKeys.login.tr(context),
                   onPressed: _isFormValid ? _login : null,
                   isLoading: authState.isLoading,
                 ),
@@ -228,7 +228,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         horizontal: AppDimensions.paddingMD,
                       ),
                       child: Text(
-                        S.orContinueWith.tr(context),
+                        L10nKeys.orContinueWith.tr(context),
                         style: const TextStyle(
                           fontSize: AppDimensions.fontMD,
                           color: AppColors.textSecondary,
@@ -256,7 +256,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      S.dontHaveAccount.tr(context),
+                      L10nKeys.dontHaveAccount.tr(context),
                       style: const TextStyle(
                         fontSize: AppDimensions.fontMD,
                         color: AppColors.textSecondary,
@@ -265,7 +265,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     TextButton(
                       onPressed: () => context.go('/signup'),
                       child: Text(
-                        S.signUp.tr(context),
+                        L10nKeys.signUp.tr(context),
                         style: const TextStyle(
                           fontSize: AppDimensions.fontMD,
                           fontWeight: FontWeight.w600,

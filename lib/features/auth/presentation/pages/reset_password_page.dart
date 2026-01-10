@@ -99,7 +99,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.pop(),
         ),
-        title: Text(S.resetPassword.tr(context)),
+        title: Text(L10nKeys.resetPassword.tr(context)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -130,7 +130,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          S.resetPassword,
+          L10nKeys.resetPassword,
           style: const TextStyle(
             fontSize: AppDimensions.fontDisplay,
             fontWeight: FontWeight.bold,
@@ -139,7 +139,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
         ),
         const SizedBox(height: AppDimensions.paddingSM),
         Text(
-          S.resetPasswordDesc,
+          L10nKeys.resetPasswordDesc,
           style: const TextStyle(
             fontSize: AppDimensions.fontLG,
             color: AppColors.textSecondary,
@@ -147,23 +147,23 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
         ),
         const SizedBox(height: AppDimensions.paddingXL),
         CustomTextField(
-          label: S.email,
+          label: L10nKeys.email,
           hintText: 'Enter your email',
           controller: _emailController,
           keyboardType: TextInputType.emailAddress,
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
-              return S.fieldRequired;
+              return L10nKeys.fieldRequired;
             }
             if (!EmailValidator.validate(value)) {
-              return S.invalidEmail;
+              return L10nKeys.invalidEmail;
             }
             return null;
           },
         ),
         const SizedBox(height: AppDimensions.paddingXL),
         CustomButton(
-          text: S.sendResetLink,
+          text: L10nKeys.sendResetLink,
           onPressed: _sendResetLink,
           isLoading: authState.isLoading,
         ),
@@ -176,7 +176,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          S.enterDigitCode,
+          L10nKeys.enterDigitCode,
           style: const TextStyle(
             fontSize: AppDimensions.fontDisplay,
             fontWeight: FontWeight.bold,
@@ -185,7 +185,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
         ),
         const SizedBox(height: AppDimensions.paddingXL),
         CustomTextField(
-          label: S.verificationCode,
+          label: L10nKeys.verificationCode,
           hintText: '0000',
           controller: _codeController,
           keyboardType: TextInputType.number,
@@ -196,7 +196,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
           alignment: Alignment.centerRight,
           child: TextButton(
             onPressed: _sendResetLink,
-            child: Text(S.resendCode.tr(context)),
+            child: Text(L10nKeys.resendCode.tr(context)),
           ),
         ),
         const SizedBox(height: AppDimensions.paddingXL),
@@ -210,7 +210,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          S.newPassword,
+          L10nKeys.newPassword,
           style: const TextStyle(
             fontSize: AppDimensions.fontDisplay,
             fontWeight: FontWeight.bold,
@@ -219,7 +219,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
         ),
         const SizedBox(height: AppDimensions.paddingXL),
         CustomTextField(
-          label: S.newPassword,
+          label: L10nKeys.newPassword,
           hintText: 'Enter new password',
           controller: _newPasswordController,
           obscureText: _obscurePassword,
@@ -246,17 +246,17 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
         ),
         const SizedBox(height: AppDimensions.paddingMD),
         CustomTextField(
-          label: S.confirmNewPassword,
+          label: L10nKeys.confirmNewPassword,
           hintText: 'Confirm new password',
           controller: _confirmPasswordController,
           obscureText: _obscureConfirmPassword,
           showSuccessState: true,
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return S.fieldRequired;
+              return L10nKeys.fieldRequired;
             }
             if (value != _newPasswordController.text) {
-              return S.passwordsDoNotMatch;
+              return L10nKeys.passwordsDoNotMatch;
             }
             return null;
           },
@@ -288,7 +288,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
         ),
         const SizedBox(height: AppDimensions.paddingXL),
         Text(
-          S.passwordChangedSuccessfully,
+          L10nKeys.passwordChangedSuccessfully,
           style: const TextStyle(
             fontSize: AppDimensions.fontHeading,
             fontWeight: FontWeight.bold,

@@ -5,6 +5,8 @@ import '../../../cart/presentation/pages/cart_page.dart';
 import '../../../favorites/presentation/pages/favorites_page.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
 import '../../../../gen/assets.gen.dart';
+import '../../../../core/extensions/string_extensions.dart';
+
 
 class MainNavigationPage extends StatefulWidget {
   const MainNavigationPage({super.key});
@@ -50,31 +52,31 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
               children: [
                 _buildNavItem(
                   index: 0,
-                  label: 'Home',
+                  label: L10nKeys.home.tr(context),
                   selectedIcon: Assets.icons.selectedHomeIcon,
                   unselectedIcon: Assets.icons.selectedHomeIcon, // Use same, change color
                 ),
                 _buildNavItem(
                   index: 1,
-                  label: 'Search',
+                  label: L10nKeys.search.tr(context),
                   selectedIcon: Assets.icons.unselectedSearchIcon,
                   unselectedIcon: Assets.icons.unselectedSearchIcon,
                 ),
                 _buildNavItem(
                   index: 2,
-                  label: 'Cart',
+                  label: L10nKeys.card.tr(context),
                   selectedIcon: Assets.icons.unselectedCardIcon,
                   unselectedIcon: Assets.icons.unselectedCardIcon,
                 ),
                 _buildNavItem(
                   index: 3,
-                  label: 'Favorites',
+                  label: L10nKeys.favorites.tr(context),
                   selectedIcon: Assets.icons.unselectedSavesIcon,
                   unselectedIcon: Assets.icons.unselectedSavesIcon,
                 ),
                 _buildNavItem(
                   index: 4,
-                  label: 'Account',
+                  label: L10nKeys.account.tr(context),
                   selectedIcon: Assets.icons.unselectedAccountIcon,
                   unselectedIcon: Assets.icons.unselectedAccountIcon,
                 ),

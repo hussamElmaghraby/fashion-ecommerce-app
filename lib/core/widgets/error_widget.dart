@@ -18,7 +18,7 @@ class CustomErrorWidget extends StatelessWidget {
             const Icon(Icons.error_outline, size: 64, color: AppColors.error),
             const SizedBox(height: 16),
             Text(
-              message ?? S.somethingWentWrong,
+              message ?? L10nKeys.somethingWentWrong,
               style: const TextStyle(
                 fontSize: 16,
                 color: AppColors.textPrimary,
@@ -28,7 +28,7 @@ class CustomErrorWidget extends StatelessWidget {
             if (onRetry != null) ...[
               const SizedBox(height: 24),
               CustomButton(
-                text: S.tryAgain,
+                text: L10nKeys.tryAgain,
                 onPressed: onRetry,
                 width: 200,
               ),

@@ -130,7 +130,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
               children: [
                 // Title
                 Text(
-                  S.signUp,
+                  L10nKeys.signUp,
                   style: const TextStyle(
                     fontSize: AppDimensions.fontDisplay,
                     fontWeight: FontWeight.bold,
@@ -139,7 +139,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                 ),
                 const SizedBox(height: AppDimensions.paddingSM),
                 Text(
-                  S.createAccount,
+                  L10nKeys.createAccount,
                   style: const TextStyle(
                     fontSize: AppDimensions.fontLG,
                     color: AppColors.textSecondary,
@@ -149,14 +149,14 @@ class _SignupPageState extends ConsumerState<SignupPage> {
 
                 // Full Name Field
                 CustomTextField(
-                  label: S.fullName,
+                  label: L10nKeys.fullName,
                   hintText: 'Enter your full name',
                   controller: _nameController,
                   keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.next,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return S.fieldRequired;
+                      return L10nKeys.fieldRequired;
                     }
                     return null;
                   },
@@ -165,17 +165,17 @@ class _SignupPageState extends ConsumerState<SignupPage> {
 
                 // Email Field
                 CustomTextField(
-                  label: S.email,
+                  label: L10nKeys.email,
                   hintText: 'Enter your email',
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return S.fieldRequired;
+                      return L10nKeys.fieldRequired;
                     }
                     if (!EmailValidator.validate(value)) {
-                      return S.invalidEmail;
+                      return L10nKeys.invalidEmail;
                     }
                     return null;
                   },
@@ -184,7 +184,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
 
                 // Password Field
                 CustomTextField(
-                  label: S.password,
+                  label: L10nKeys.password,
                   hintText: 'Enter your password',
                   controller: _passwordController,
                   obscureText: _obscurePassword,
@@ -216,7 +216,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
 
                 // Confirm Password Field
                 CustomTextField(
-                  label: S.confirmPassword,
+                  label: L10nKeys.confirmPassword,
                   hintText: 'Confirm your password',
                   controller: _confirmPasswordController,
                   obscureText: _obscureConfirmPassword,
@@ -236,10 +236,10 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return S.fieldRequired;
+                      return L10nKeys.fieldRequired;
                     }
                     if (value != _passwordController.text) {
-                      return S.passwordsDoNotMatch;
+                      return L10nKeys.passwordsDoNotMatch;
                     }
                     return null;
                   },
@@ -260,7 +260,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                     ),
                     const Expanded(
                       child: Text(
-                        S.agreeTerms,
+                        L10nKeys.agreeTerms,
                         style: TextStyle(
                           fontSize: AppDimensions.fontMD,
                           color: AppColors.textPrimary,
@@ -273,7 +273,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
 
                 // Sign Up Button
                 CustomButton(
-                  text: S.signUp,
+                  text: L10nKeys.signUp,
                   onPressed: _isFormValid ? _signUp : null,
                   isLoading: authState.isLoading,
                 ),
@@ -284,7 +284,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      S.alreadyHaveAccount,
+                      L10nKeys.alreadyHaveAccount,
                       style: const TextStyle(
                         fontSize: AppDimensions.fontMD,
                         color: AppColors.textSecondary,
@@ -293,7 +293,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                     TextButton(
                       onPressed: () => context.go('/login'),
                       child: Text(
-                        S.signIn,
+                        L10nKeys.signIn,
                         style: TextStyle(
                           fontSize: AppDimensions.fontMD,
                           fontWeight: FontWeight.w600,

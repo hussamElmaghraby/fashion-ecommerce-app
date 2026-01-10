@@ -20,8 +20,8 @@ extension LocalizationContext on BuildContext {
 
 /// App Strings - Direct localization keys
 /// Usage: S.login.tr(context) or context.tr(S.login)
-class S {
-  S._();
+class L10nKeys {
+  L10nKeys._();
 
   // App
   static const String appName = 'app_name';
@@ -84,6 +84,13 @@ class S {
   static const String reviews = 'reviews';
   static const String inStock = 'in_stock';
   static const String outOfStock = 'out_of_stock';
+
+  // Navigation
+  static const String home = 'home';
+  static const String search = 'search';
+  static const String cart = 'cart';
+  static const String card = 'card';
+  static const String favorites = 'favorites';
 
   // Cart
   static const String myCart = 'my_cart';

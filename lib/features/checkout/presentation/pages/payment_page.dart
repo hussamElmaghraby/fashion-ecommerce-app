@@ -15,7 +15,7 @@ class PaymentPage extends ConsumerWidget {
     final paymentMethodsAsync = ref.watch(paymentMethodsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(S.paymentMethods.tr(context))),
+      appBar: AppBar(title: Text(L10nKeys.paymentMethods.tr(context))),
       body: paymentMethodsAsync.when(
         data: (methods) {
           if (methods.isEmpty) {
@@ -38,7 +38,7 @@ class PaymentPage extends ConsumerWidget {
                   ),
                   const SizedBox(height: AppDimensions.paddingXL),
                   CustomButton(
-                    text: S.addNewCard.tr(context),
+                    text: L10nKeys.addNewCard.tr(context),
                     onPressed: () => context.push('/payment/add'),
                   ),
                 ],

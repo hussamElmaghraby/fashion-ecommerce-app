@@ -224,8 +224,8 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
                           const SizedBox(width: AppDimensions.paddingXS),
                           Text(
                             product.inStock
-                                ? S.inStock.tr(context)
-                                : S.outOfStock.tr(context),
+                                ? L10nKeys.inStock.tr(context)
+                                : L10nKeys.outOfStock.tr(context),
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: product.inStock
@@ -241,7 +241,7 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
                       if (product.sizes != null &&
                           product.sizes!.isNotEmpty) ...[
                         Text(
-                          S.selectSize.tr(context),
+                          L10nKeys.selectSize.tr(context),
                           style: const TextStyle(
                             fontSize: AppDimensions.fontLG,
                             fontWeight: FontWeight.w600,
@@ -299,7 +299,7 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
                       if (product.colors != null &&
                           product.colors!.isNotEmpty) ...[
                         Text(
-                          S.selectColor.tr(context),
+                          L10nKeys.selectColor.tr(context),
                           style: const TextStyle(
                             fontSize: AppDimensions.fontLG,
                             fontWeight: FontWeight.w600,
@@ -345,7 +345,7 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
 
                       // Quantity Selector
                       Text(
-                        S.quantity.tr(context),
+                        L10nKeys.quantity.tr(context),
                         style: const TextStyle(
                           fontSize: AppDimensions.fontLG,
                           fontWeight: FontWeight.w600,
@@ -393,7 +393,7 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
 
                       // Description
                       Text(
-                        S.description.tr(context),
+                        L10nKeys.description.tr(context),
                         style: const TextStyle(
                           fontSize: AppDimensions.fontLG,
                           fontWeight: FontWeight.w600,
@@ -440,7 +440,7 @@ class _ProductDetailsPageState extends ConsumerState<ProductDetailsPage> {
           ),
           child: SafeArea(
             child: CustomButton(
-              text: S.addToCart.tr(context),
+              text: L10nKeys.addToCart.tr(context),
               icon: const Icon(
                 Icons.shopping_cart_outlined,
                 color: AppColors.textWhite,

@@ -47,8 +47,8 @@ class _AddPaymentPageState extends ConsumerState<AddPaymentPage> {
       appBar: AppBar(
         title: Text(
           widget.paymentId == null
-              ? S.addNewCard.tr(context)
-              : S.editCard.tr(context),
+              ? L10nKeys.addNewCard.tr(context)
+              : L10nKeys.editCard.tr(context),
         ),
       ),
       body: Form(
@@ -57,12 +57,12 @@ class _AddPaymentPageState extends ConsumerState<AddPaymentPage> {
           padding: const EdgeInsets.all(AppDimensions.paddingMD),
           children: [
             CustomTextField(
-              label: S.cardNumber.tr(context),
+              label: L10nKeys.cardNumber.tr(context),
               controller: _cardNumberController,
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.fieldRequired.tr(context);
+                  return L10nKeys.fieldRequired.tr(context);
                 }
                 if (value.length < 16) {
                   return 'Invalid card number';
@@ -72,11 +72,11 @@ class _AddPaymentPageState extends ConsumerState<AddPaymentPage> {
             ),
             const SizedBox(height: AppDimensions.paddingMD),
             CustomTextField(
-              label: S.cardHolderName.tr(context),
+              label: L10nKeys.cardHolderName.tr(context),
               controller: _cardHolderController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.fieldRequired.tr(context);
+                  return L10nKeys.fieldRequired.tr(context);
                 }
                 return null;
               },
@@ -86,13 +86,13 @@ class _AddPaymentPageState extends ConsumerState<AddPaymentPage> {
               children: [
                 Expanded(
                   child: CustomTextField(
-                    label: S.expiryDate.tr(context),
+                    label: L10nKeys.expiryDate.tr(context),
                     controller: _expiryDateController,
                     hintText: 'MM/YY',
                     keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return S.fieldRequired.tr(context);
+                        return L10nKeys.fieldRequired.tr(context);
                       }
                       return null;
                     },
@@ -101,14 +101,14 @@ class _AddPaymentPageState extends ConsumerState<AddPaymentPage> {
                 const SizedBox(width: AppDimensions.paddingMD),
                 Expanded(
                   child: CustomTextField(
-                    label: S.cvv.tr(context),
+                    label: L10nKeys.cvv.tr(context),
                     controller: _cvvController,
                     keyboardType: TextInputType.number,
                     obscureText: true,
                     maxLength: 3,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return S.fieldRequired.tr(context);
+                        return L10nKeys.fieldRequired.tr(context);
                       }
                       if (value.length < 3) {
                         return 'Invalid CVV';
@@ -121,7 +121,7 @@ class _AddPaymentPageState extends ConsumerState<AddPaymentPage> {
             ),
             const SizedBox(height: AppDimensions.paddingMD),
             CheckboxListTile(
-              title: Text(S.setAsDefault.tr(context)),
+              title: Text(L10nKeys.setAsDefault.tr(context)),
               value: _isDefault,
               onChanged: (value) {
                 setState(() {
@@ -132,7 +132,7 @@ class _AddPaymentPageState extends ConsumerState<AddPaymentPage> {
             ),
             const SizedBox(height: AppDimensions.paddingXL),
             CustomButton(
-              text: S.saveCard.tr(context),
+              text: L10nKeys.saveCard.tr(context),
               onPressed: _savePaymentMethod,
             ),
           ],

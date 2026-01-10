@@ -51,8 +51,8 @@ class _AddAddressPageState extends ConsumerState<AddAddressPage> {
       appBar: AppBar(
         title: Text(
           widget.addressId == null
-              ? S.addNewAddress.tr(context)
-              : S.editAddress.tr(context),
+              ? L10nKeys.addNewAddress.tr(context)
+              : L10nKeys.editAddress.tr(context),
         ),
       ),
       body: Form(
@@ -61,45 +61,45 @@ class _AddAddressPageState extends ConsumerState<AddAddressPage> {
           padding: const EdgeInsets.all(AppDimensions.paddingMD),
           children: [
             CustomTextField(
-              label: S.fullName.tr(context),
+              label: L10nKeys.fullName.tr(context),
               controller: _nameController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.fieldRequired.tr(context);
+                  return L10nKeys.fieldRequired.tr(context);
                 }
                 return null;
               },
             ),
             const SizedBox(height: AppDimensions.paddingMD),
             CustomTextField(
-              label: S.phoneNumber.tr(context),
+              label: L10nKeys.phoneNumber.tr(context),
               controller: _phoneController,
               keyboardType: TextInputType.phone,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.fieldRequired.tr(context);
+                  return L10nKeys.fieldRequired.tr(context);
                 }
                 return null;
               },
             ),
             const SizedBox(height: AppDimensions.paddingMD),
             CustomTextField(
-              label: S.streetAddress.tr(context),
+              label: L10nKeys.streetAddress.tr(context),
               controller: _streetController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.fieldRequired.tr(context);
+                  return L10nKeys.fieldRequired.tr(context);
                 }
                 return null;
               },
             ),
             const SizedBox(height: AppDimensions.paddingMD),
             CustomTextField(
-              label: S.city.tr(context),
+              label: L10nKeys.city.tr(context),
               controller: _cityController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.fieldRequired.tr(context);
+                  return L10nKeys.fieldRequired.tr(context);
                 }
                 return null;
               },
@@ -109,11 +109,11 @@ class _AddAddressPageState extends ConsumerState<AddAddressPage> {
               children: [
                 Expanded(
                   child: CustomTextField(
-                    label: S.state.tr(context),
+                    label: L10nKeys.state.tr(context),
                     controller: _stateController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return S.fieldRequired.tr(context);
+                        return L10nKeys.fieldRequired.tr(context);
                       }
                       return null;
                     },
@@ -122,12 +122,12 @@ class _AddAddressPageState extends ConsumerState<AddAddressPage> {
                 const SizedBox(width: AppDimensions.paddingMD),
                 Expanded(
                   child: CustomTextField(
-                    label: S.zipCode.tr(context),
+                    label: L10nKeys.zipCode.tr(context),
                     controller: _zipCodeController,
                     keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return S.fieldRequired.tr(context);
+                        return L10nKeys.fieldRequired.tr(context);
                       }
                       return null;
                     },
@@ -137,7 +137,7 @@ class _AddAddressPageState extends ConsumerState<AddAddressPage> {
             ),
             const SizedBox(height: AppDimensions.paddingMD),
             CheckboxListTile(
-              title: Text(S.setAsDefault.tr(context)),
+              title: Text(L10nKeys.setAsDefault.tr(context)),
               value: _isDefault,
               onChanged: (value) {
                 setState(() {
@@ -148,7 +148,7 @@ class _AddAddressPageState extends ConsumerState<AddAddressPage> {
             ),
             const SizedBox(height: AppDimensions.paddingXL),
             CustomButton(
-              text: S.saveAddress.tr(context),
+              text: L10nKeys.saveAddress.tr(context),
               onPressed: _saveAddress,
             ),
           ],
