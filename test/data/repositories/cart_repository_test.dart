@@ -1,204 +1,250 @@
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:fashion_ecommerce/data/repositories/cart_repository.dart';
-// import 'package:fashion_ecommerce/data/models/cart_item_model.dart';
-// import 'package:fashion_ecommerce/data/models/product_model.dart';
-// import 'package:uuid/uuid.dart';
-//
-// // Mock Storage Service for testing
-// class MockStorageService {
-//   final List<CartItemModel> _items = [];
-//
-//   Future<void> addToCart(CartItemModel item) async {
-//     _items.add(item);
-//   }
-//
-//   Future<void> removeFromCart(String itemId) async {
-//     _items.removeWhere((i) => i.id == itemId);
-//   }
-//
-//   Future<void> updateCartItem(CartItemModel item) async {
-//     final index = _items.indexWhere((i) => i.id == item.id);
-//     if (index != -1) {
-//       _items[index] = item;
-//     }
-//   }
-//
-//   Future<void> clearCart() async {
-//     _items.clear();
-//   }
-//
-//   List<CartItemModel> getCartItems() {
-//     return List.from(_items);
-//   }
-// }
-//
-// void main() {
-//   late CartRepository cartRepository;
-//   late MockStorageService mockStorageService;
-//
-//   setUp(() {
-//     mockStorageService = MockStorageService();
-//     cartRepository = CartRepository(mockStorageService);
-//   });
-//
-//   group('CartRepository Tests', () {
-//     test('should add item to cart', () async {
-//       // Arrange
-//       final product = ProductModel(
-//         id: 1,
-//         title: 'Test Product',
-//         price: 99.99,
-//         description: 'Test Description',
-//         category: 'Test Category',
-//         image: 'https://test.com/image.jpg',
-//         rating: RatingModel(rate: 4.5, count: 100),
-//       );
-//
-//       final cartItem = CartItemModel(
-//         id: const Uuid().v4(),
-//         product: product,
-//         quantity: 1,
-//       );
-//
-//       // Act
-//       await cartRepository.addToCart(cartItem);
-//       final items = cartRepository.getCartItems();
-//
-//       // Assert
-//       expect(items.length, 1);
-//       expect(items.first.product.id, product.id);
-//       expect(items.first.quantity, 1);
-//     });
-//
-//     test('should update quantity when adding same item', () async {
-//       // Arrange
-//       final product = ProductModel(
-//         id: 1,
-//         title: 'Test Product',
-//         price: 99.99,
-//         description: 'Test Description',
-//         category: 'Test Category',
-//         image: 'https://test.com/image.jpg',
-//         rating: RatingModel(rate: 4.5, count: 100),
-//       );
-//
-//       final cartItem1 = CartItemModel(
-//         id: 'test-id-1',
-//         product: product,
-//         quantity: 1,
-//       );
-//
-//       final cartItem2 = CartItemModel(
-//         id: 'test-id-1',
-//         product: product,
-//         quantity: 2,
-//       );
-//
-//       // Act
-//       await cartRepository.addToCart(cartItem1);
-//       await mockStorageService.updateCartItem(cartItem2);
-//       final items = cartRepository.getCartItems();
-//
-//       // Assert
-//       expect(items.length, 1);
-//       expect(items.first.quantity, 2);
-//     });
-//
-//     test('should remove item from cart', () async {
-//       // Arrange
-//       final product = ProductModel(
-//         id: 1,
-//         title: 'Test Product',
-//         price: 99.99,
-//         description: 'Test Description',
-//         category: 'Test Category',
-//         image: 'https://test.com/image.jpg',
-//         rating: RatingModel(rate: 4.5, count: 100),
-//       );
-//
-//       final cartItem = CartItemModel(
-//         id: 'test-id',
-//         product: product,
-//         quantity: 1,
-//       );
-//
-//       // Act
-//       await cartRepository.addToCart(cartItem);
-//       await cartRepository.removeFromCart('test-id');
-//       final items = cartRepository.getCartItems();
-//
-//       // Assert
-//       expect(items.length, 0);
-//     });
-//
-//     test('should calculate cart total correctly', () async {
-//       // Arrange
-//       final product1 = ProductModel(
-//         id: 1,
-//         title: 'Product 1',
-//         price: 10.0,
-//         description: 'Test',
-//         category: 'Test',
-//         image: 'test.jpg',
-//         rating: RatingModel(rate: 4.5, count: 100),
-//       );
-//
-//       final product2 = ProductModel(
-//         id: 2,
-//         title: 'Product 2',
-//         price: 20.0,
-//         description: 'Test',
-//         category: 'Test',
-//         image: 'test.jpg',
-//         rating: RatingModel(rate: 4.5, count: 100),
-//       );
-//
-//       final cartItem1 = CartItemModel(
-//         id: 'id-1',
-//         product: product1,
-//         quantity: 2,
-//       );
-//
-//       final cartItem2 = CartItemModel(
-//         id: 'id-2',
-//         product: product2,
-//         quantity: 1,
-//       );
-//
-//       // Act
-//       await cartRepository.addToCart(cartItem1);
-//       await cartRepository.addToCart(cartItem2);
-//       final total = cartRepository.getCartTotal();
-//
-//       // Assert
-//       expect(total, 40.0); // (10 * 2) + (20 * 1) = 40
-//     });
-//
-//     test('should clear all items from cart', () async {
-//       // Arrange
-//       final product = ProductModel(
-//         id: 1,
-//         title: 'Test Product',
-//         price: 99.99,
-//         description: 'Test Description',
-//         category: 'Test Category',
-//         image: 'https://test.com/image.jpg',
-//         rating: RatingModel(rate: 4.5, count: 100),
-//       );
-//
-//       final cartItem = CartItemModel(
-//         id: const Uuid().v4(),
-//         product: product,
-//         quantity: 1,
-//       );
-//
-//       // Act
-//       await cartRepository.addToCart(cartItem);
-//       await cartRepository.clearCart();
-//       final items = cartRepository.getCartItems();
-//
-//       // Assert
-//       expect(items.length, 0);
-//     });
-//   });
-// }
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:fashion_ecommerce/data/repositories/cart_repository.dart';
+import 'package:fashion_ecommerce/data/services/storage_service.dart';
+import 'package:fashion_ecommerce/data/models/cart_item_model.dart';
+import 'package:fashion_ecommerce/data/models/product_model.dart';
+
+class MockStorageService extends Mock implements StorageService {}
+
+void main() {
+  late CartRepository repository;
+  late MockStorageService mockStorage;
+
+  setUpAll(() {
+    registerFallbackValue(
+      CartItemModel(
+        id: 'fallback',
+        product: ProductModel(
+          id: 0,
+          title: '',
+          price: 0,
+          description: '',
+          category: '',
+          image: '',
+          rating: RatingModel(rate: 0, count: 0),
+        ),
+        quantity: 1,
+      ),
+    );
+  });
+
+  setUp(() {
+    mockStorage = MockStorageService();
+    repository = CartRepository(mockStorage);
+  });
+
+  ProductModel createTestProduct({int id = 1, double price = 50.0}) {
+    return ProductModel(
+      id: id,
+      title: 'Test Product $id',
+      price: price,
+      description: 'Description',
+      category: 'category',
+      image: 'image.jpg',
+      rating: RatingModel(rate: 4.0, count: 10),
+    );
+  }
+
+  CartItemModel createTestCartItem({
+    String id = 'item_1',
+    int productId = 1,
+    int quantity = 1,
+    String? size,
+    String? color,
+  }) {
+    return CartItemModel(
+      id: id,
+      product: createTestProduct(id: productId),
+      quantity: quantity,
+      selectedSize: size,
+      selectedColor: color,
+    );
+  }
+
+  group('addToCart', () {
+    test('adds new item when cart is empty', () async {
+      final item = createTestCartItem();
+
+      when(() => mockStorage.getCartItems()).thenReturn([]);
+      when(() => mockStorage.addToCart(item)).thenAnswer((_) async {});
+
+      await repository.addToCart(item);
+
+      verify(() => mockStorage.addToCart(item)).called(1);
+    });
+
+    test(
+      'adds new item when same product with different size exists',
+      () async {
+        final existingItem = createTestCartItem(size: 'S');
+        final newItem = createTestCartItem(id: 'item_2', size: 'L');
+
+        when(() => mockStorage.getCartItems()).thenReturn([existingItem]);
+        when(() => mockStorage.addToCart(newItem)).thenAnswer((_) async {});
+
+        await repository.addToCart(newItem);
+
+        verify(() => mockStorage.addToCart(newItem)).called(1);
+        verifyNever(() => mockStorage.updateCartItem(any()));
+      },
+    );
+
+    test(
+      'updates quantity when same product with same options exists',
+      () async {
+        final existingItem = createTestCartItem(
+          quantity: 2,
+          size: 'M',
+          color: 'Black',
+        );
+        final newItem = createTestCartItem(
+          id: 'item_2',
+          quantity: 3,
+          size: 'M',
+          color: 'Black',
+        );
+
+        when(() => mockStorage.getCartItems()).thenReturn([existingItem]);
+        when(() => mockStorage.updateCartItem(any())).thenAnswer((_) async {});
+
+        await repository.addToCart(newItem);
+
+        verify(() => mockStorage.updateCartItem(any())).called(1);
+        verifyNever(() => mockStorage.addToCart(any()));
+      },
+    );
+
+    test('adds new item when product color differs', () async {
+      final existingItem = createTestCartItem(color: 'Black');
+      final newItem = createTestCartItem(id: 'item_2', color: 'White');
+
+      when(() => mockStorage.getCartItems()).thenReturn([existingItem]);
+      when(() => mockStorage.addToCart(newItem)).thenAnswer((_) async {});
+
+      await repository.addToCart(newItem);
+
+      verify(() => mockStorage.addToCart(newItem)).called(1);
+    });
+  });
+
+  group('removeFromCart', () {
+    test('removes item by id', () async {
+      when(() => mockStorage.removeFromCart('item_1')).thenAnswer((_) async {});
+
+      await repository.removeFromCart('item_1');
+
+      verify(() => mockStorage.removeFromCart('item_1')).called(1);
+    });
+  });
+
+  group('updateCartItemQuantity', () {
+    test('updates quantity for existing item', () async {
+      final item = createTestCartItem(quantity: 1);
+
+      when(() => mockStorage.getCartItems()).thenReturn([item]);
+      when(() => mockStorage.updateCartItem(any())).thenAnswer((_) async {});
+
+      await repository.updateCartItemQuantity('item_1', 5);
+
+      verify(() => mockStorage.updateCartItem(any())).called(1);
+    });
+  });
+
+  group('clearCart', () {
+    test('clears all items', () async {
+      when(() => mockStorage.clearCart()).thenAnswer((_) async {});
+
+      await repository.clearCart();
+
+      verify(() => mockStorage.clearCart()).called(1);
+    });
+  });
+
+  group('getCartItems', () {
+    test('returns empty list when cart is empty', () {
+      when(() => mockStorage.getCartItems()).thenReturn([]);
+
+      final items = repository.getCartItems();
+
+      expect(items, isEmpty);
+    });
+
+    test('returns all items from storage', () {
+      final items = [
+        createTestCartItem(id: 'item_1'),
+        createTestCartItem(id: 'item_2', productId: 2),
+      ];
+
+      when(() => mockStorage.getCartItems()).thenReturn(items);
+
+      final result = repository.getCartItems();
+
+      expect(result.length, 2);
+    });
+  });
+
+  group('getCartTotal', () {
+    test('returns zero for empty cart', () {
+      when(() => mockStorage.getCartItems()).thenReturn([]);
+
+      final total = repository.getCartTotal();
+
+      expect(total, 0.0);
+    });
+
+    test('calculates total for single item', () {
+      final item = createTestCartItem(quantity: 2);
+
+      when(() => mockStorage.getCartItems()).thenReturn([item]);
+
+      final total = repository.getCartTotal();
+
+      expect(total, 100.0);
+    });
+
+    test('calculates total for multiple items', () {
+      final items = [
+        CartItemModel(
+          id: 'item_1',
+          product: createTestProduct(price: 50.0),
+          quantity: 2,
+        ),
+        CartItemModel(
+          id: 'item_2',
+          product: createTestProduct(id: 2, price: 30.0),
+          quantity: 3,
+        ),
+      ];
+
+      when(() => mockStorage.getCartItems()).thenReturn(items);
+
+      final total = repository.getCartTotal();
+
+      expect(total, 190.0);
+    });
+  });
+
+  group('getCartItemCount', () {
+    test('returns zero for empty cart', () {
+      when(() => mockStorage.getCartItems()).thenReturn([]);
+
+      final count = repository.getCartItemCount();
+
+      expect(count, 0);
+    });
+
+    test('returns total quantity across all items', () {
+      final items = [
+        createTestCartItem(id: 'item_1', quantity: 2),
+        createTestCartItem(id: 'item_2', productId: 2, quantity: 3),
+      ];
+
+      when(() => mockStorage.getCartItems()).thenReturn(items);
+
+      final count = repository.getCartItemCount();
+
+      expect(count, 5);
+    });
+  });
+}
