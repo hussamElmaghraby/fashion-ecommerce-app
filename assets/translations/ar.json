@@ -26,6 +26,8 @@
   "invalid_email": "الرجاء إدخال بريد إلكتروني صحيح",
   "login_to_account": "تسجيل الدخول إلى حسابك",
   "or_continue_with": "أو تابع باستخدام",
+  "login_with_google": "تسجيل الدخول بحساب جوجل",
+  "login_with_facebook": "تسجيل الدخول بحساب فيسبوك",
   "dont_have_account": "ليس لديك حساب؟",
   "already_have_account": "لديك حساب بالفعل؟",
   "full_name": "الاسم الكامل",

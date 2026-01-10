@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/extensions/string_extensions.dart';
 import '../constants/app_colors.dart';
-import '../utils/s.dart';
+import '../utils/l10n.dart';
 import 'custom_button.dart';
 
 class CustomErrorWidget extends StatelessWidget {

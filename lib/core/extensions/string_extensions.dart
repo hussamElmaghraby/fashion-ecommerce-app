@@ -30,6 +30,8 @@ class L10nKeys {
   static const String forgotPassword = 'forgot_password';
   static const String dontHaveAccount = 'dont_have_account';
   static const String orContinueWith = 'or_continue_with';
+  static const String loginWithGoogle = 'login_with_google';
+  static const String loginWithFacebook = 'login_with_facebook';
 
   // Auth - Reset Password
   static const String resetPassword = 'reset_password';

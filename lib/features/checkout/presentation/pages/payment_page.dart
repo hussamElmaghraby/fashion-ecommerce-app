@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/extensions/string_extensions.dart';
-import '../../../../core/utils/s.dart';
+import '../../../../core/utils/l10n.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../providers/payment_provider.dart';
 

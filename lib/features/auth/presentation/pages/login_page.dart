@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/extensions/string_extensions.dart';
-import '../../../../core/utils/s.dart';
+import '../../../../core/utils/l10n.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../providers/auth_provider.dart';
@@ -30,6 +31,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.initState();
     _emailController.addListener(_validateForm);
     _passwordController.addListener(_validateForm);
+    _loadRememberMe();
   }
 
   @override
@@ -58,8 +60,34 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     }
   }
 
-  void _login() {
+  Future<void> _loadRememberMe() async {
+    final prefs = await SharedPreferences.getInstance();
+    final rememberMe = prefs.getBool('remember_me') ?? false;
+    final savedEmail = prefs.getString('saved_email') ?? '';
+
+    if (rememberMe && savedEmail.isNotEmpty) {
+      setState(() {
+        _rememberMe = rememberMe;
+        _emailController.text = savedEmail;
+      });
+    }
+  }
+
+  Future<void> _saveRememberMe() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (_rememberMe) {
+      await prefs.setBool('remember_me', true);
+      await prefs.setString('saved_email', _emailController.text.trim());
+    } else {
+      await prefs.remove('remember_me');
+      await prefs.remove('saved_email');
+    }
+  }
+
+  void _login() async {
     if (!_formKey.currentState!.validate()) return;
+
+    await _saveRememberMe();
 
     ref
         .read(authStateProvider.notifier)
@@ -241,15 +269,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ),
                 const SizedBox(height: AppDimensions.paddingXL),
 
-                // Social Login Buttons (Placeholder)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildSocialButton(Icons.facebook, () {}),
-                    const SizedBox(width: AppDimensions.paddingMD),
-                    _buildSocialButton(Icons.g_mobiledata, () {}),
-                  ],
-                ),
+                // Social Login Buttons
+                _buildGoogleButton(),
+                const SizedBox(height: AppDimensions.paddingSM),
+                _buildFacebookButton(),
                 const SizedBox(height: AppDimensions.paddingXL),
 
                 // Sign Up Link
@@ -283,17 +306,75 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     );
   }
 
-  Widget _buildSocialButton(IconData icon, VoidCallback onTap) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: 60,
-        height: 60,
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColors.border),
-          borderRadius: BorderRadius.circular(AppDimensions.radiusMD),
+  Widget _buildGoogleButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 56,
+      child: OutlinedButton.icon(
+        onPressed: () {
+          // TODO: Implement Google Sign In
+        },
+        style: OutlinedButton.styleFrom(
+          backgroundColor: Colors.white,
+          foregroundColor: const Color(0xFF1F2937),
+          side: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         ),
-        child: Icon(icon, size: 32),
+        icon: Container(
+          width: 24,
+          height: 24,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                'https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png',
+              ),
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        label: Text(
+          L10nKeys.loginWithGoogle.tr(context),
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFacebookButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 56,
+      child: ElevatedButton.icon(
+        onPressed: () {
+          // TODO: Implement Facebook Sign In
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF1877F2),
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        ),
+        icon: const Icon(
+          Icons.facebook,
+          size: 24,
+          color: Colors.white,
+        ),
+        label: Text(
+          L10nKeys.loginWithFacebook.tr(context),
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
     );
   }

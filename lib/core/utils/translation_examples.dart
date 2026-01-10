@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fashion_ecommerce/core/utils/s.dart';
+import 'package:fashion_ecommerce/core/utils/l10n.dart';
 import 'package:fashion_ecommerce/core/widgets/custom_button.dart';
 import 'package:fashion_ecommerce/core/widgets/custom_text_field.dart';
 

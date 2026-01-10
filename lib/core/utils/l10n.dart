@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'app_localizations.dart';
 
-/// S class - Simplified translations
-/// Usage: 'key'.tr(context) or S.of(context).translate('key')
-class S {
+/// L10n class - Localization helper
+/// Usage: 'key'.tr(context) or L10n.of(context).translate('key')
+class L10n {
   final BuildContext context;
 
-  S(this.context);
+  L10n(this.context);
 
-  /// Get S instance from context
-  static S of(BuildContext context) => S(context);
+  /// Get L10n instance from context
+  static L10n of(BuildContext context) => L10n(context);
 
   /// Translate a key
   String translate(String key) {
@@ -54,6 +54,8 @@ class S {
   String get invalidEmail => translate('invalid_email');
   String get loginToAccount => translate('login_to_account');
   String get orContinueWith => translate('or_continue_with');
+  String get loginWithGoogle => translate('login_with_google');
+  String get loginWithFacebook => translate('login_with_facebook');
   String get dontHaveAccount => translate('dont_have_account');
   String get alreadyHaveAccount => translate('already_have_account');
   String get fullName => translate('full_name');
@@ -217,8 +219,8 @@ extension BuildContextTranslation on BuildContext {
     return AppLocalizations.of(this)?.translate(key) ?? key;
   }
 
-  /// Get S instance
-  S get s => S(this);
+  /// Get L10n instance (kept as 's' for convenience)
+  L10n get s => L10n(this);
 
   /// Get current language code
   String get languageCode {

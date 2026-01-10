@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/extensions/string_extensions.dart';
-import '../../../../core/utils/s.dart';
+import '../../../../core/utils/l10n.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../gen/assets.gen.dart';
 

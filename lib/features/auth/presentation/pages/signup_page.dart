@@ -5,7 +5,7 @@ import 'package:email_validator/email_validator.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/extensions/string_extensions.dart';
-import '../../../../core/utils/s.dart';
+import '../../../../core/utils/l10n.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../providers/auth_provider.dart';
@@ -278,7 +278,33 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   onPressed: _isFormValid ? _signUp : null,
                   isLoading: authState.isLoading,
                 ),
-                const SizedBox(height: AppDimensions.paddingLG),
+                const SizedBox(height: AppDimensions.paddingXL),
+
+                Row(
+                  children: [
+                    const Expanded(child: Divider()),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppDimensions.paddingMD,
+                      ),
+                      child: Text(
+                        L10nKeys.orContinueWith.tr(context),
+                        style: const TextStyle(
+                          fontSize: AppDimensions.fontMD,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ),
+                    const Expanded(child: Divider()),
+                  ],
+                ),
+                const SizedBox(height: AppDimensions.paddingXL),
+
+                // Social Login Buttons
+                _buildGoogleButton(),
+                const SizedBox(height: AppDimensions.paddingSM),
+                _buildFacebookButton(),
+                const SizedBox(height: AppDimensions.paddingXL),
 
                 // Login Link
                 Row(
@@ -305,6 +331,79 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGoogleButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 56,
+      child: OutlinedButton.icon(
+        onPressed: () {
+          // TODO: Implement Google Sign In
+        },
+        style: OutlinedButton.styleFrom(
+          backgroundColor: Colors.white,
+          foregroundColor: const Color(0xFF1F2937),
+          side: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        ),
+        icon: Container(
+          width: 24,
+          height: 24,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                'https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png',
+              ),
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        label: Text(
+          L10nKeys.loginWithGoogle.tr(context),
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFacebookButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 56,
+      child: ElevatedButton.icon(
+        onPressed: () {
+          // TODO: Implement Facebook Sign In
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF1877F2),
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        ),
+        icon: const Icon(
+          Icons.facebook,
+          size: 24,
+          color: Colors.white,
+        ),
+        label: Text(
+          L10nKeys.loginWithFacebook.tr(context),
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),

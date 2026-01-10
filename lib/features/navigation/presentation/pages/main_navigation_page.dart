@@ -6,7 +6,7 @@ import '../../../favorites/presentation/pages/favorites_page.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../core/extensions/string_extensions.dart';
-import '../../../../core/utils/s.dart';
+import '../../../../core/utils/l10n.dart';
 
 
 class MainNavigationPage extends StatefulWidget {

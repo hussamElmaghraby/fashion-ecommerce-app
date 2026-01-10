@@ -30,7 +30,7 @@ flutter run
 ## Translations
 
 ```dart
-import 'package:fashion_ecommerce/core/utils/s.dart';
+import 'package:fashion_ecommerce/core/utils/l10n.dart';
 
 // Simple way
 Text('login'.tr(context))
@@ -79,7 +79,7 @@ lib/
 ├── core/
 │   ├── config/         # Router, theme
 │   ├── constants/      # Colors, dimensions
-│   ├── utils/          # Localization (S class)
+│   ├── utils/          # Localization (L10n class)
 │   └── widgets/        # Reusable widgets
 ├── data/
 │   ├── models/         # Hive models
@@ -163,7 +163,7 @@ flutter pub get
 ## Notes
 
 - Hive adapters must be registered before use (see `main.dart`)
-- Use S class for translations instead of hardcoded strings
+- Use L10n class (context.s) for translations instead of hardcoded strings
 - All assets are type-safe via `flutter_gen`
 - Cart uses VAT 5%
 - Default locale: English (change in Profile → Language)
