@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/providers/locale_provider.dart';
+import '../../../../core/utils/s.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 
 class ProfilePage extends ConsumerWidget {
@@ -12,13 +13,14 @@ class ProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider);
+    final s = context.s;
 
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text(
-          'Account',
-          style: TextStyle(
+        title: Text(
+          s.account,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
             color: AppColors.textPrimary,
@@ -49,7 +51,7 @@ class ProfilePage extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    authState.user?.fullName ?? 'Guest User',
+                    authState.user?.fullName ?? s.guestUser,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
@@ -58,7 +60,7 @@ class ProfilePage extends ConsumerWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    authState.user?.email ?? 'Not logged in',
+                    authState.user?.email ?? s.notLoggedIn,
                     style: const TextStyle(
                       fontSize: 14,
                       color: AppColors.textSecondary,
@@ -72,23 +74,24 @@ class ProfilePage extends ConsumerWidget {
 
             // Menu Items
             _buildMenuSection(
-              title: 'Account',
+              context,
+              title: s.account,
               items: [
                 _MenuItem(
                   icon: Icons.person_outline,
-                  title: 'Edit Profile',
+                  title: s.editProfile,
                   onTap: () {
                     // Navigate to edit profile
                   },
                 ),
                 _MenuItem(
                   icon: Icons.location_on_outlined,
-                  title: 'Addresses',
+                  title: s.addresses,
                   onTap: () => context.push('/address'),
                 ),
                 _MenuItem(
                   icon: Icons.credit_card_outlined,
-                  title: 'Payment Methods',
+                  title: s.paymentMethods,
                   onTap: () => context.push('/payment'),
                 ),
               ],
@@ -97,28 +100,29 @@ class ProfilePage extends ConsumerWidget {
             const Divider(height: 1),
 
             _buildMenuSection(
-              title: 'Preferences',
+              context,
+              title: s.preferences,
               items: [
                 _MenuItem(
                   icon: Icons.notifications_outlined,
-                  title: 'Notifications',
+                  title: s.notifications,
                   onTap: () {
                     // Navigate to notifications settings
                   },
                 ),
                 _MenuItem(
                   icon: Icons.language_outlined,
-                  title: 'Language',
+                  title: s.language,
                   subtitle: ref.watch(localeProvider).languageCode == 'ar'
-                      ? 'العربية'
-                      : 'English',
+                      ? s.arabic
+                      : s.english,
                   onTap: () {
                     _showLanguageDialog(context, ref);
                   },
                 ),
                 _MenuItem(
                   icon: Icons.dark_mode_outlined,
-                  title: 'Dark Mode',
+                  title: s.darkMode,
                   trailing: Switch(
                     value: false,
                     onChanged: (value) {
@@ -132,25 +136,26 @@ class ProfilePage extends ConsumerWidget {
             const Divider(height: 1),
 
             _buildMenuSection(
-              title: 'Support',
+              context,
+              title: s.support,
               items: [
                 _MenuItem(
                   icon: Icons.help_outline,
-                  title: 'Help Center',
+                  title: s.helpCenter,
                   onTap: () {
                     // Navigate to help
                   },
                 ),
                 _MenuItem(
                   icon: Icons.privacy_tip_outlined,
-                  title: 'Privacy Policy',
+                  title: s.privacyPolicy,
                   onTap: () {
                     // Navigate to privacy policy
                   },
                 ),
                 _MenuItem(
                   icon: Icons.description_outlined,
-                  title: 'Terms & Conditions',
+                  title: s.termsConditions,
                   onTap: () {
                     // Navigate to terms
                   },
@@ -170,23 +175,23 @@ class ProfilePage extends ConsumerWidget {
                     // Show logout confirmation
                     showDialog(
                       context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Logout'),
-                        content: const Text('Are you sure you want to logout?'),
+                      builder: (dialogContext) => AlertDialog(
+                        title: Text(s.logout),
+                        content: Text(s.logoutConfirm),
                         actions: [
                           TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text('Cancel'),
+                            onPressed: () => Navigator.pop(dialogContext),
+                            child: Text(s.cancel),
                           ),
                           TextButton(
                             onPressed: () {
                               ref.read(authStateProvider.notifier).logout();
-                              Navigator.pop(context);
+                              Navigator.pop(dialogContext);
                               context.go('/login');
                             },
-                            child: const Text(
-                              'Logout',
-                              style: TextStyle(color: Colors.red),
+                            child: Text(
+                              s.logout,
+                              style: const TextStyle(color: Colors.red),
                             ),
                           ),
                         ],
@@ -201,9 +206,9 @@ class ProfilePage extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
-                    'Logout',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  child: Text(
+                    s.logout,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
@@ -218,33 +223,34 @@ class ProfilePage extends ConsumerWidget {
 
   void _showLanguageDialog(BuildContext context, WidgetRef ref) {
     final currentLocale = ref.read(localeProvider);
+    final s = context.s;
 
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Select Language'),
+      builder: (dialogContext) => AlertDialog(
+        title: Text(s.selectLanguage),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             RadioListTile<String>(
-              title: const Text('English'),
+              title: Text(s.english),
               value: 'en',
               groupValue: currentLocale.languageCode,
               onChanged: (value) {
                 if (value != null) {
                   ref.read(localeProvider.notifier).setLocale(Locale(value));
-                  Navigator.pop(context);
+                  Navigator.pop(dialogContext);
                 }
               },
             ),
             RadioListTile<String>(
-              title: const Text('العربية'),
+              title: Text(s.arabic),
               value: 'ar',
               groupValue: currentLocale.languageCode,
               onChanged: (value) {
                 if (value != null) {
                   ref.read(localeProvider.notifier).setLocale(Locale(value));
-                  Navigator.pop(context);
+                  Navigator.pop(dialogContext);
                 }
               },
             ),
@@ -252,15 +258,16 @@ class ProfilePage extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(s.cancel),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildMenuSection({
+  Widget _buildMenuSection(
+    BuildContext context, {
     required String title,
     required List<_MenuItem> items,
   }) {

@@ -1,25 +1,5 @@
-import 'package:flutter/material.dart';
-import '../utils/app_localizations.dart';
-
-/// Extension to get localized strings
-/// Usage: 'login'.tr(context) or context.tr('login')
-extension LocalizedString on String {
-  String tr(BuildContext context) {
-    return AppLocalizations.of(context)?.translate(this) ?? this;
-  }
-}
-
-/// Extension on BuildContext for easier access
-extension LocalizationContext on BuildContext {
-  String tr(String key) {
-    return AppLocalizations.of(this)?.translate(key) ?? key;
-  }
-
-  AppLocalizations? get loc => AppLocalizations.of(this);
-}
-
 /// App Strings - Direct localization keys
-/// Usage: S.login.tr(context) or context.tr(S.login)
+/// Usage: L10nKeys.login.tr(context)
 class L10nKeys {
   L10nKeys._();
 
@@ -92,6 +72,13 @@ class L10nKeys {
   static const String card = 'card';
   static const String favorites = 'favorites';
 
+  // Favorites
+  static const String noFavoritesYet = 'no_favorites_yet';
+  static const String startAddingFavorites = 'start_adding_favorites';
+  static const String browseProducts = 'browse_products';
+  static const String clearAllFavorites = 'clear_all_favorites';
+  static const String removeAllFavoritesConfirm = 'remove_all_favorites_confirm';
+
   // Cart
   static const String myCart = 'my_cart';
   static const String cartEmpty = 'cart_empty';
@@ -103,6 +90,8 @@ class L10nKeys {
   static const String tax = 'tax';
   static const String total = 'total';
   static const String proceedToCheckout = 'proceed_to_checkout';
+  static const String item = 'item';
+  static const String items = 'items';
 
   // Checkout
   static const String checkout = 'checkout';
@@ -198,4 +187,6 @@ class L10nKeys {
   static const String logoutConfirm = 'logout_confirm';
   static const String enterNewPassword = 'enter_new_password';
   static const String confirmNewPasswordHint = 'confirm_new_password_hint';
+  static const String guestUser = 'guest_user';
+  static const String notLoggedIn = 'not_logged_in';
 }

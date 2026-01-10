@@ -1,8 +1,10 @@
+import 'package:fashion_ecommerce/core/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/utils/s.dart';
 import '../../../../core/widgets/empty_state_widget.dart';
 import '../../../home/presentation/widgets/product_card.dart';
 import '../../../home/presentation/providers/product_provider.dart';
@@ -15,13 +17,14 @@ class FavoritesPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final favoritesState = ref.watch(favoritesProvider);
     final productsAsync = ref.watch(productsProvider);
+    final s = context.s;
 
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text(
-          'Favorites',
-          style: TextStyle(
+        title: Text(
+          s.favorites,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
             color: AppColors.textPrimary,
@@ -38,31 +41,31 @@ class FavoritesPage extends ConsumerWidget {
                 // Show confirmation dialog
                 showDialog(
                   context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text('Clear All Favorites'),
-                    content: const Text(
-                      'Are you sure you want to remove all favorites?',
-                    ),
+                  builder: (dialogContext) => AlertDialog(
+                    title: Text(s.clearAllFavorites),
+                    content: Text(s.removeAllFavoritesConfirm),
                     actions: [
                       TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('Cancel'),
+                        onPressed: () => Navigator.pop(dialogContext),
+                        child: Text(s.cancel),
                       ),
                       TextButton(
                         onPressed: () {
-                          ref.read(favoritesProvider.notifier).clearAllFavorites();
-                          Navigator.pop(context);
+                          ref
+                              .read(favoritesProvider.notifier)
+                              .clearAllFavorites();
+                          Navigator.pop(dialogContext);
                         },
-                        child: const Text(
-                          'Clear All',
-                          style: TextStyle(color: Colors.red),
+                        child: Text(
+                          s.clearAll,
+                          style: const TextStyle(color: Colors.red),
                         ),
                       ),
                     ],
                   ),
                 );
               },
-              tooltip: 'Clear All',
+              tooltip: s.clearAll,
             ),
         ],
       ),
@@ -75,9 +78,9 @@ class FavoritesPage extends ConsumerWidget {
           if (favoriteProducts.isEmpty) {
             return EmptyStateWidget(
               icon: Icons.favorite_border,
-              title: 'No Favorites Yet',
-              subtitle: 'Start adding your favorite items',
-              buttonText: 'Browse Products',
+              title: s.noFavoritesYet,
+              subtitle: s.startAddingFavorites,
+              buttonText: s.browseProducts,
               onButtonPressed: () {
                 // Navigate to home tab
                 // Since we're in bottom nav, just switch to home tab
@@ -92,7 +95,7 @@ class FavoritesPage extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.all(AppDimensions.paddingMD),
                 child: Text(
-                  '${favoriteProducts.length} ${favoriteProducts.length == 1 ? 'Item' : 'Items'}',
+                  '${favoriteProducts.length} ${favoriteProducts.length == 1 ? L10nKeys.item.tr(context) : L10nKeys.items.tr(context)}',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -127,9 +130,8 @@ class FavoritesPage extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(
-          child: Text('Error: ${error.toString()}'),
-        ),
+        error: (error, stack) =>
+            Center(child: Text('${s.error}: ${error.toString()}')),
       ),
     );
   }

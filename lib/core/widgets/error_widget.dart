@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/extensions/string_extensions.dart';
 import '../constants/app_colors.dart';
+import '../utils/s.dart';
 import 'custom_button.dart';
 
 class CustomErrorWidget extends StatelessWidget {
@@ -18,7 +19,7 @@ class CustomErrorWidget extends StatelessWidget {
             const Icon(Icons.error_outline, size: 64, color: AppColors.error),
             const SizedBox(height: 16),
             Text(
-              message ?? L10nKeys.somethingWentWrong,
+              message ?? L10nKeys.somethingWentWrong.tr(context),
               style: const TextStyle(
                 fontSize: 16,
                 color: AppColors.textPrimary,
@@ -28,7 +29,7 @@ class CustomErrorWidget extends StatelessWidget {
             if (onRetry != null) ...[
               const SizedBox(height: 24),
               CustomButton(
-                text: L10nKeys.tryAgain,
+                text: L10nKeys.tryAgain.tr(context),
                 onPressed: onRetry,
                 width: 200,
               ),

@@ -5,6 +5,7 @@ import 'package:email_validator/email_validator.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/extensions/string_extensions.dart';
+import '../../../../core/utils/s.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../providers/auth_provider.dart';
