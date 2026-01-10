@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'app_localizations.dart';
 
-/// S class - Simplified translations
-/// Usage: 'key'.tr(context) or S.of(context).translate('key')
-class S {
+/// L10n class - Simplified translations
+/// Usage: 'key'.tr(context) or L10n.of(context).translate('key')
+class L10n {
   final BuildContext context;
 
-  S(this.context);
+  L10n(this.context);
 
-  /// Get S instance from context
-  static S of(BuildContext context) => S(context);
+  /// Get L10n instance from context
+  static L10n of(BuildContext context) => L10n(context);
 
   /// Translate a key
   String translate(String key) {
@@ -220,7 +220,7 @@ extension BuildContextTranslation on BuildContext {
   }
 
   /// Get S instance
-  S get s => S(this);
+  L10n get s => L10n(this);
 
   /// Get current language code
   String get languageCode {
