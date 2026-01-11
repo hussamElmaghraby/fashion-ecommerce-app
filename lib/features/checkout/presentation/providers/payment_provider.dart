@@ -61,8 +61,8 @@ class PaymentNotifier extends StateNotifier<PaymentState> {
   }
 
   void _loadPaymentMethods() {
-    final paymentMethods = _storageService.getPaymentMethods();
-    final defaultPayment = _storageService.getDefaultPaymentMethod();
+    final List<PaymentMethodModel> paymentMethods = _storageService.getPaymentMethods();
+    final PaymentMethodModel? defaultPayment = _storageService.getDefaultPaymentMethod();
 
     state = state.copyWith(
       paymentMethods: paymentMethods,

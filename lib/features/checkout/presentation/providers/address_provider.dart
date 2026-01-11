@@ -59,10 +59,10 @@ class AddressNotifier extends StateNotifier<AddressState> {
   }
 
   void _loadAddresses() {
-    final addresses = _storageService.getAddresses();
+    final List<AddressModel> addresses = _storageService.getAddresses();
     final defaultAddress = addresses.isNotEmpty
         ? addresses.firstWhere(
-            (a) => a.isDefault,
+            (AddressModel a) => a.isDefault,
             orElse: () => addresses.first,
           )
         : null;

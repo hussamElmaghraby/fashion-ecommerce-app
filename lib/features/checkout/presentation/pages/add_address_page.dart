@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uuid/uuid.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/extensions/string_extensions.dart';
 import '../../../../core/utils/l10n.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_field.dart';
+import '../../../../data/models/address_model.dart';
 import '../providers/address_provider.dart';
 
 class AddAddressPage extends ConsumerStatefulWidget {
@@ -39,11 +41,32 @@ class _AddAddressPageState extends ConsumerState<AddAddressPage> {
     super.dispose();
   }
 
-  void _saveAddress() {
+  Future<void> _saveAddress() async {
     if (!_formKey.currentState!.validate()) return;
 
-    // Save address logic here
-    context.pop();
+    final address = AddressModel(
+      id: widget.addressId ?? const Uuid().v4(),
+      fullName: _nameController.text.trim(),
+      phoneNumber: _phoneController.text.trim(),
+      streetAddress: _streetController.text.trim(),
+      city: _cityController.text.trim(),
+      state: _stateController.text.trim(),
+      zipCode: _zipCodeController.text.trim(),
+      country: 'USA',
+      isDefault: _isDefault,
+    );
+
+    await ref.read(addressProvider.notifier).saveAddress(address);
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(L10nKeys.addressSaved.tr(context)),
+          backgroundColor: AppColors.success,
+        ),
+      );
+      context.pop();
+    }
   }
 
   @override

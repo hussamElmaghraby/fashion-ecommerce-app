@@ -127,7 +127,7 @@ class StorageService {
   PaymentMethodModel? getDefaultPaymentMethod() {
     try {
       return _paymentBoxInstance.values.firstWhere(
-        (payment) => payment.isDefault,
+        (PaymentMethodModel payment) => payment.isDefault,
         orElse: () => _paymentBoxInstance.values.isNotEmpty
             ? _paymentBoxInstance.values.first
             : throw Exception('No payment methods found'),

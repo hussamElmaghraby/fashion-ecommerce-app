@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uuid/uuid.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/extensions/string_extensions.dart';
 import '../../../../core/utils/l10n.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_field.dart';
+import '../../../../data/models/payment_method_model.dart';
 import '../providers/payment_provider.dart';
 
 class AddPaymentPage extends ConsumerStatefulWidget {
@@ -35,11 +37,29 @@ class _AddPaymentPageState extends ConsumerState<AddPaymentPage> {
     super.dispose();
   }
 
-  void _savePaymentMethod() {
+  Future<void> _savePaymentMethod() async {
     if (!_formKey.currentState!.validate()) return;
 
-    // Save payment method logic here
-    context.pop();
+    final paymentMethod = PaymentMethodModel(
+      id: widget.paymentId ?? const Uuid().v4(),
+      type: PaymentType.card,
+      cardNumber: _cardNumberController.text.trim(),
+      cardHolderName: _cardHolderController.text.trim(),
+      expiryDate: _expiryDateController.text.trim(),
+      isDefault: _isDefault,
+    );
+
+    await ref.read(paymentProvider.notifier).savePaymentMethod(paymentMethod);
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(L10nKeys.cardSaved.tr(context)),
+          backgroundColor: AppColors.success,
+        ),
+      );
+      context.pop();
+    }
   }
 
   @override

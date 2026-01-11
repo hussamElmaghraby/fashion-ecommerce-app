@@ -110,6 +110,7 @@ class L10nKeys {
   static const String addNewAddress = 'add_new_address';
   static const String editAddress = 'edit_address';
   static const String saveAddress = 'save_address';
+  static const String addressSaved = 'address_saved';
   static const String streetAddress = 'street_address';
   static const String city = 'city';
   static const String state = 'state';
@@ -130,6 +131,7 @@ class L10nKeys {
   static const String expiryDate = 'expiry_date';
   static const String cvv = 'cvv';
   static const String saveCard = 'save_card';
+  static const String cardSaved = 'card_saved';
   static const String editCard = 'edit_card';
   static const String addNew = 'add_new';
   static const String pleaseSelectAddress = 'please_select_address';
