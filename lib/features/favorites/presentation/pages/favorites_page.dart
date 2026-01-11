@@ -2,12 +2,14 @@ import 'package:fashion_ecommerce/core/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/config/app_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/utils/l10n.dart';
 import '../../../../core/widgets/empty_state_widget.dart';
 import '../../../home/presentation/widgets/product_card.dart';
 import '../../../home/presentation/providers/product_provider.dart';
+import '../../../navigation/presentation/providers/navigation_provider.dart';
 import '../providers/favorites_provider.dart';
 
 class FavoritesPage extends ConsumerWidget {
@@ -82,9 +84,7 @@ class FavoritesPage extends ConsumerWidget {
               subtitle: s.startAddingFavorites,
               buttonText: s.browseProducts,
               onButtonPressed: () {
-                // Navigate to home tab
-                // Since we're in bottom nav, just switch to home tab
-                // or use DefaultTabController if implemented
+                ref.read(navigationIndexProvider.notifier).goToHome();
               },
             );
           }

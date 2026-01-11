@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../../../../core/config/app_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/l10n.dart';
 import '../../../../core/widgets/custom_button.dart';
+import '../../../navigation/presentation/providers/navigation_provider.dart';
 import '../providers/cart_provider.dart';
 import '../../../../gen/assets.gen.dart';
 
@@ -41,12 +43,12 @@ class CartPage extends ConsumerWidget {
               ),
       ),
       body: cartState.items.isEmpty
-          ? _buildEmptyCart(context)
+          ? _buildEmptyCart(context, ref)
           : _buildCartWithItems(context, ref, cartState),
     );
   }
 
-  Widget _buildEmptyCart(BuildContext context) {
+  Widget _buildEmptyCart(BuildContext context, WidgetRef ref) {
     final s = context.s;
 
     return Center(
@@ -88,7 +90,10 @@ class CartPage extends ConsumerWidget {
           const SizedBox(height: 32),
           CustomButton(
             text: s.startShopping,
-            onPressed: () => context.go('/home', extra: 0),
+            onPressed: () {
+              ref.read(navigationIndexProvider.notifier).goToHome();
+              context.go(AppRouter.home, extra: 0);
+            },
           ),
         ],
       ),

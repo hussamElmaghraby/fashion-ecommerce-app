@@ -7,6 +7,7 @@ import '../../features/auth/presentation/pages/signup_page.dart';
 import '../../features/auth/presentation/pages/reset_password_page.dart';
 import '../../features/navigation/presentation/pages/main_navigation_page.dart';
 import '../../features/product/presentation/pages/product_details_page.dart';
+import '../../features/cart/presentation/pages/cart_page.dart';
 import '../../features/checkout/presentation/pages/checkout_page.dart';
 import '../../features/checkout/presentation/pages/address_page.dart';
 import '../../features/checkout/presentation/pages/add_address_page.dart';
@@ -21,6 +22,7 @@ class AppRouter {
   static const String resetPassword = '/reset-password';
   static const String home = '/home';
   static const String productDetails = '/product/:id';
+  static const String cart = '/cart';
   static const String checkout = '/checkout';
   static const String address = '/address';
   static const String addAddress = '/address/add';
@@ -73,6 +75,11 @@ class AppRouter {
           final id = int.parse(state.pathParameters['id']!);
           return ProductDetailsPage(productId: id);
         },
+      ),
+      GoRoute(
+        path: cart,
+        name: 'cart',
+        builder: (context, state) => const CartPage(),
       ),
       GoRoute(
         path: checkout,

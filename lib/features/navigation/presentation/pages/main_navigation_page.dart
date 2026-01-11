@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../home/presentation/pages/home_page.dart';
 import '../../../search/presentation/pages/search_page.dart';
 import '../../../cart/presentation/pages/cart_page.dart';
@@ -7,47 +8,46 @@ import '../../../profile/presentation/pages/profile_page.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../core/extensions/string_extensions.dart';
 import '../../../../core/utils/l10n.dart';
+import '../providers/navigation_provider.dart';
 
-class MainNavigationPage extends StatefulWidget {
+class MainNavigationPage extends ConsumerStatefulWidget {
   final int initialTabIndex;
 
   const MainNavigationPage({super.key, this.initialTabIndex = 0});
 
   @override
-  State<MainNavigationPage> createState() => _MainNavigationPageState();
+  ConsumerState<MainNavigationPage> createState() => _MainNavigationPageState();
 }
 
-class _MainNavigationPageState extends State<MainNavigationPage> {
-  late int _currentIndex;
-
+class _MainNavigationPageState extends ConsumerState<MainNavigationPage> {
   @override
   void initState() {
     super.initState();
-    _currentIndex = widget.initialTabIndex;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(navigationIndexProvider.notifier).setIndex(widget.initialTabIndex);
+    });
   }
 
   @override
   void didUpdateWidget(MainNavigationPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initialTabIndex != widget.initialTabIndex) {
-      setState(() {
-        _currentIndex = widget.initialTabIndex;
-      });
+      ref.read(navigationIndexProvider.notifier).setIndex(widget.initialTabIndex);
     }
   }
 
-  final List<Widget> _pages = const [
-    HomePage(),
-    SearchPage(),
-    CartPage(),
-    FavoritesPage(),
-    ProfilePage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final currentIndex = ref.watch(navigationIndexProvider);
+    
     return Scaffold(
-      body: IndexedStack(index: _currentIndex, children: _pages),
+      body: IndexedStack(index: currentIndex, children: const [
+        HomePage(),
+        SearchPage(),
+        CartPage(),
+        FavoritesPage(),
+        ProfilePage(),
+      ]),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -110,13 +110,12 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
     required SvgGenImage selectedIcon,
     required SvgGenImage unselectedIcon,
   }) {
-    final isSelected = _currentIndex == index;
+    final currentIndex = ref.watch(navigationIndexProvider);
+    final isSelected = currentIndex == index;
 
     return InkWell(
       onTap: () {
-        setState(() {
-          _currentIndex = index;
-        });
+        ref.read(navigationIndexProvider.notifier).setIndex(index);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

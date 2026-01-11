@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/config/app_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/extensions/string_extensions.dart';
@@ -43,7 +44,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             children: [
               IconButton(
                 icon: const Icon(Icons.shopping_cart_outlined),
-                onPressed: () => context.push('/cart'),
+                onPressed: () => context.push(AppRouter.cart),
               ),
               if (cartState.itemCount > 0)
                 Positioned(
