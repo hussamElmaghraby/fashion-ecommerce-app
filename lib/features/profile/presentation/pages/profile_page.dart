@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/providers/locale_provider.dart';
 import '../../../../core/utils/l10n.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
@@ -208,7 +207,10 @@ class ProfilePage extends ConsumerWidget {
                   ),
                   child: Text(
                     s.logout,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),

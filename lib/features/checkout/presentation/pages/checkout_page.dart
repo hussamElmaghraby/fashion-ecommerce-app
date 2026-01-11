@@ -97,19 +97,49 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
               }
 
               return Column(
-                children: addresses.map((address) {
-                  return RadioListTile<String>(
-                    title: Text(address.fullName),
-                    subtitle: Text('${address.streetAddress}, ${address.city}'),
-                    value: address.id,
-                    groupValue: _selectedAddressId,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedAddressId = value;
-                      });
-                    },
-                  );
-                }).toList(),
+                children: [
+                  ...addresses.map((address) {
+                    return Card(
+                      margin: const EdgeInsets.only(
+                        bottom: AppDimensions.paddingSM,
+                      ),
+                      child: RadioListTile<String>(
+                        title: Text(address.fullName),
+                        subtitle: Text(
+                          '${address.streetAddress}, ${address.city}',
+                        ),
+                        value: address.id,
+                        groupValue: _selectedAddressId,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAddressId = value;
+                          });
+                        },
+                        secondary: IconButton(
+                          icon: const Icon(
+                            Icons.delete_outline,
+                            color: AppColors.error,
+                          ),
+                          onPressed: () {
+                            ref
+                                .read(addressProvider.notifier)
+                                .deleteAddress(address.id);
+                            if (_selectedAddressId == address.id) {
+                              setState(() {
+                                _selectedAddressId = null;
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                    );
+                  }),
+                  TextButton.icon(
+                    onPressed: () => context.push('/address/add'),
+                    icon: const Icon(Icons.add),
+                    label: Text(L10nKeys.addNew.tr(context)),
+                  ),
+                ],
               );
             },
             loading: () => const CircularProgressIndicator(),
@@ -141,21 +171,49 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
               }
 
               return Column(
-                children: methods.map((method) {
-                  return RadioListTile<String>(
-                    title: Text(method.cardHolderName ?? 'Card'),
-                    subtitle: Text(
-                      '**** **** **** ${method.cardNumber?.substring(method.cardNumber!.length - 4) ?? '****'}',
-                    ),
-                    value: method.id,
-                    groupValue: _selectedPaymentId,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedPaymentId = value;
-                      });
-                    },
-                  );
-                }).toList(),
+                children: [
+                  ...methods.map((method) {
+                    return Card(
+                      margin: const EdgeInsets.only(
+                        bottom: AppDimensions.paddingSM,
+                      ),
+                      child: RadioListTile<String>(
+                        title: Text(method.cardHolderName ?? 'Card'),
+                        subtitle: Text(
+                          '**** **** **** ${method.cardNumber?.substring(method.cardNumber!.length - 4) ?? '****'}',
+                        ),
+                        value: method.id,
+                        groupValue: _selectedPaymentId,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedPaymentId = value;
+                          });
+                        },
+                        secondary: IconButton(
+                          icon: const Icon(
+                            Icons.delete_outline,
+                            color: AppColors.error,
+                          ),
+                          onPressed: () {
+                            ref
+                                .read(paymentProvider.notifier)
+                                .deletePaymentMethod(method.id);
+                            if (_selectedPaymentId == method.id) {
+                              setState(() {
+                                _selectedPaymentId = null;
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                    );
+                  }),
+                  TextButton.icon(
+                    onPressed: () => context.push('/payment/add'),
+                    icon: const Icon(Icons.add),
+                    label: Text(L10nKeys.addNew.tr(context)),
+                  ),
+                ],
               );
             },
             loading: () => const CircularProgressIndicator(),

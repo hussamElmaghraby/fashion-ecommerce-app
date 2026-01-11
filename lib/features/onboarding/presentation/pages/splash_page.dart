@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../gen/assets.gen.dart';
 
 class SplashPage extends StatefulWidget {
@@ -13,7 +12,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   late AnimationController _logoController;
   late AnimationController _shimmerController;
-  
+
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
   late Animation<double> _rotationAnimation;
@@ -23,7 +22,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    
+
     // Main logo animation controller (4 seconds)
     _logoController = AnimationController(
       duration: const Duration(milliseconds: 4000),
@@ -61,27 +60,22 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     );
 
     // Slide from top animation (0-1.5 seconds)
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, -1.5),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _logoController,
-        curve: const Interval(0.0, 0.375, curve: Curves.easeOutBack),
-      ),
-    );
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(0, -1.5), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _logoController,
+            curve: const Interval(0.0, 0.375, curve: Curves.easeOutBack),
+          ),
+        );
 
     // Pulse animation (repeating for shimmer effect)
     _pulseAnimation = Tween<double>(begin: 0.95, end: 1.05).animate(
-      CurvedAnimation(
-        parent: _shimmerController,
-        curve: Curves.easeInOut,
-      ),
+      CurvedAnimation(parent: _shimmerController, curve: Curves.easeInOut),
     );
 
     // Start animations
     _logoController.forward();
-    
+
     // Start shimmer effect after logo animation completes
     _logoController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -110,7 +104,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          
           // Animated logo
           Center(
             child: AnimatedBuilder(
@@ -141,7 +134,9 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.white.withOpacity(0.1 * _pulseAnimation.value),
+                            color: Colors.white.withOpacity(
+                              0.1 * _pulseAnimation.value,
+                            ),
                             blurRadius: 50 * _pulseAnimation.value,
                             spreadRadius: 15 * _pulseAnimation.value,
                           ),
@@ -157,7 +152,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
               ),
             ),
           ),
-          
+
           // Circular loading indicator at bottom
           Positioned(
             bottom: 80,

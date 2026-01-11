@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../constants/app_colors.dart';
-import '../constants/app_dimensions.dart';
 import '../../gen/assets.gen.dart';
 
 enum TextFieldState { normal, focused, error, success }
@@ -166,7 +165,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       );
     } else if (state == TextFieldState.success) {
       return Padding(
-        padding: const EdgeInsets.all( 12),
+        padding: const EdgeInsets.all(12),
         child: Assets.icons.successValidationIcon.svg(),
       );
     }
