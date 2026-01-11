@@ -23,6 +23,7 @@ class CustomTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final bool showSuccessState;
   final String? errorText;
+  final bool autofocus;
 
   const CustomTextField({
     super.key,
@@ -43,6 +44,7 @@ class CustomTextField extends StatefulWidget {
     this.focusNode,
     this.showSuccessState = false,
     this.errorText,
+    this.autofocus = false,
   });
 
   @override
@@ -200,6 +202,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         TextFormField(
           controller: widget.controller,
           focusNode: _focusNode,
+          autofocus: widget.autofocus,
           obscureText: widget.obscureText && _obscureText,
           keyboardType: widget.keyboardType,
           maxLines: widget.obscureText ? 1 : widget.maxLines,
