@@ -48,7 +48,7 @@ class CartPage extends ConsumerWidget {
 
   Widget _buildEmptyCart(BuildContext context) {
     final s = context.s;
-    
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +88,7 @@ class CartPage extends ConsumerWidget {
           const SizedBox(height: 32),
           CustomButton(
             text: s.startShopping,
-            onPressed: () => context.go('/'),
+            onPressed: () => context.go('/home', extra: 0),
           ),
         ],
       ),
@@ -101,7 +101,7 @@ class CartPage extends ConsumerWidget {
     dynamic cartState,
   ) {
     final s = context.s;
-    
+
     return Column(
       children: [
         Expanded(

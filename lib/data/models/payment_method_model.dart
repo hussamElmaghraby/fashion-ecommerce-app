@@ -2,8 +2,11 @@ import 'package:hive/hive.dart';
 
 part 'payment_method_model.g.dart';
 
+@HiveType(typeId: 6)
 enum PaymentType {
+  @HiveField(0)
   card,
+  @HiveField(1)
   cash,
 }
 

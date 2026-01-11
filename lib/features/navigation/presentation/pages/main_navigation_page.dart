@@ -8,16 +8,33 @@ import '../../../../gen/assets.gen.dart';
 import '../../../../core/extensions/string_extensions.dart';
 import '../../../../core/utils/l10n.dart';
 
-
 class MainNavigationPage extends StatefulWidget {
-  const MainNavigationPage({super.key});
+  final int initialTabIndex;
+
+  const MainNavigationPage({super.key, this.initialTabIndex = 0});
 
   @override
   State<MainNavigationPage> createState() => _MainNavigationPageState();
 }
 
 class _MainNavigationPageState extends State<MainNavigationPage> {
-  int _currentIndex = 0;
+  late int _currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialTabIndex;
+  }
+
+  @override
+  void didUpdateWidget(MainNavigationPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialTabIndex != widget.initialTabIndex) {
+      setState(() {
+        _currentIndex = widget.initialTabIndex;
+      });
+    }
+  }
 
   final List<Widget> _pages = const [
     HomePage(),
@@ -30,10 +47,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _pages),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -55,7 +69,8 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
                   index: 0,
                   label: L10nKeys.home.tr(context),
                   selectedIcon: Assets.icons.selectedHomeIcon,
-                  unselectedIcon: Assets.icons.selectedHomeIcon, // Use same, change color
+                  unselectedIcon:
+                      Assets.icons.selectedHomeIcon, // Use same, change color
                 ),
                 _buildNavItem(
                   index: 1,
@@ -96,7 +111,7 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
     required SvgGenImage unselectedIcon,
   }) {
     final isSelected = _currentIndex == index;
-    
+
     return InkWell(
       onTap: () {
         setState(() {
@@ -122,7 +137,9 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                color: isSelected ? const Color(0xFF111827) : const Color(0xFF9CA3AF),
+                color: isSelected
+                    ? const Color(0xFF111827)
+                    : const Color(0xFF9CA3AF),
                 height: 1.2,
               ),
             ),

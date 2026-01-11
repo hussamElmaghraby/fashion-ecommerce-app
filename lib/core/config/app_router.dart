@@ -58,7 +58,13 @@ class AppRouter {
       GoRoute(
         path: home,
         name: 'home',
-        builder: (context, state) => const MainNavigationPage(),
+        builder: (context, state) {
+          final tabIndex = state.extra as int? ?? 0;
+          return MainNavigationPage(
+            key: ValueKey('home_tab_$tabIndex'),
+            initialTabIndex: tabIndex,
+          );
+        },
       ),
       GoRoute(
         path: '/product/:id',

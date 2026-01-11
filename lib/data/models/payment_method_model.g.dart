@@ -54,3 +54,42 @@ class PaymentMethodModelAdapter extends TypeAdapter<PaymentMethodModel> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+class PaymentTypeAdapter extends TypeAdapter<PaymentType> {
+  @override
+  final int typeId = 6;
+
+  @override
+  PaymentType read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return PaymentType.card;
+      case 1:
+        return PaymentType.cash;
+      default:
+        return PaymentType.card;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, PaymentType obj) {
+    switch (obj) {
+      case PaymentType.card:
+        writer.writeByte(0);
+        break;
+      case PaymentType.cash:
+        writer.writeByte(1);
+        break;
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PaymentTypeAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}

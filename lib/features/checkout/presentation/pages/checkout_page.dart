@@ -57,9 +57,9 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
       ),
     );
 
-    // Clear cart and navigate
+    // Clear cart and navigate to home tab
     ref.read(cartProvider.notifier).clearCart();
-    context.go('/');
+    context.go('/home', extra: 0);
   }
 
   @override
@@ -239,7 +239,10 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
           const SizedBox(height: AppDimensions.paddingXL),
 
           // Place Order Button
-          CustomButton(text: L10nKeys.placeOrder.tr(context), onPressed: _placeOrder),
+          CustomButton(
+            text: L10nKeys.placeOrder.tr(context),
+            onPressed: _placeOrder,
+          ),
         ],
       ),
     );
