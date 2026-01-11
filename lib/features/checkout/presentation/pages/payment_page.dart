@@ -68,7 +68,7 @@ class PaymentPage extends ConsumerWidget {
                         IconButton(
                           icon: const Icon(Icons.edit),
                           onPressed: () =>
-                              context.push('/payment/edit/${method.id}'),
+                              context.push('/payment/add', extra: method.id),
                         ),
                         IconButton(
                           icon: const Icon(Icons.delete, color: AppColors.error),

@@ -29,6 +29,32 @@ class _AddPaymentPageState extends ConsumerState<AddPaymentPage> {
   bool _isDefault = false;
 
   @override
+  void initState() {
+    super.initState();
+    // Load existing payment method data if editing
+    if (widget.paymentId != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _loadPaymentData();
+      });
+    }
+  }
+
+  void _loadPaymentData() {
+    final paymentMethods = ref.read(paymentProvider).paymentMethods;
+    final payment = paymentMethods.firstWhere(
+      (p) => p.id == widget.paymentId,
+      orElse: () => paymentMethods.first,
+    );
+
+    setState(() {
+      _cardNumberController.text = payment.cardNumber ?? '';
+      _cardHolderController.text = payment.cardHolderName ?? '';
+      _expiryDateController.text = payment.expiryDate ?? '';
+      _isDefault = payment.isDefault;
+    });
+  }
+
+  @override
   void dispose() {
     _cardNumberController.dispose();
     _cardHolderController.dispose();

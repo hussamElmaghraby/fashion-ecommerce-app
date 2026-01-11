@@ -31,6 +31,35 @@ class _AddAddressPageState extends ConsumerState<AddAddressPage> {
   bool _isDefault = false;
 
   @override
+  void initState() {
+    super.initState();
+    // Load existing address data if editing
+    if (widget.addressId != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _loadAddressData();
+      });
+    }
+  }
+
+  void _loadAddressData() {
+    final addresses = ref.read(addressProvider).addresses;
+    final address = addresses.firstWhere(
+      (a) => a.id == widget.addressId,
+      orElse: () => addresses.first,
+    );
+
+    setState(() {
+      _nameController.text = address.fullName;
+      _phoneController.text = address.phoneNumber;
+      _streetController.text = address.streetAddress;
+      _cityController.text = address.city;
+      _stateController.text = address.state;
+      _zipCodeController.text = address.zipCode;
+      _isDefault = address.isDefault;
+    });
+  }
+
+  @override
   void dispose() {
     _nameController.dispose();
     _phoneController.dispose();

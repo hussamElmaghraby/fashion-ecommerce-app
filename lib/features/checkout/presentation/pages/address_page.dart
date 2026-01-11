@@ -67,7 +67,7 @@ class AddressPage extends ConsumerWidget {
                         IconButton(
                           icon: const Icon(Icons.edit),
                           onPressed: () =>
-                              context.push('/address/edit/${address.id}'),
+                              context.push('/address/add', extra: address.id),
                         ),
                         IconButton(
                           icon: const Icon(Icons.delete, color: AppColors.error),
